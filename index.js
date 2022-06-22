@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const readFIle = require('./helpers/readFile');
+// const loginMiddleware = require('./middlewares/loginMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +25,12 @@ app.get('/talker/:id', async (_request, response) => {
     return response.status(404).send({
       message: 'Pessoa palestrante não encontrada',
     });
+});
+
+// Requisito 3
+app.post('/login', (_request, response) => {
+  const token = crypto.randomBytes(8).join('').substring(0, 16);
+  response.status(200).send({ token });
 });
 
 // não remova esse endpoint, é para o avaliador funcionar

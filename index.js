@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const readFIle = require('./helpers/readFile');
-const { loginMiddleware } = require('./middleware/validations');
+const { loginMiddleware } = require('./helpers/validations');
 
 const app = express();
 app.use(bodyParser.json());

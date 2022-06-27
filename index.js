@@ -30,8 +30,7 @@ app.get('/talker/:id', async (_request, response) => {
 // Requisito 3 e 4
 app.post('/login', loginMiddleware, (request, response) => {  
   const token = crypto.randomBytes(8).join('').substring(0, 16); 
-  if (request.body.email && request.body.password) return response.status(200).json({ token });
-  response.status(200).json({ token });
+ return response.status(200).json({ token });
 });
 
 // não remova esse endpoint, é para o avaliador funcionar

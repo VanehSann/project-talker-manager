@@ -68,6 +68,15 @@ rateMiddleware, async (request, response) => {
  return response.status(200).json(results[resultIndex]);
 });
 
+// Requisito 7
+app.delete('/talker/:id', authorizationMiddleware, async (request, response) => {
+  const { id } = request.params;
+  const results = await readFIle();
+  const newResults = results.find((req) => req.id !== Number(id));
+  writeFIle(newResults);
+ return response.status(204).json(newResults);
+});
+
 // não remova esse endpoint, é para o avaliador funcionar 
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();

@@ -26,8 +26,8 @@ app.get('/talker', async (_request, response) => {
 });
 
 // Requisito 2
-app.get('/talker/:id', async (_request, response) => {
-    const { id } = _request.params;
+app.get('/talker/:id', async (request, response) => {
+    const { id } = request.params;
     const results = await readFIle();
     const result = results.find((talker) => talker.id === Number(id));
     if (result) return response.status(HTTP_OK_STATUS).send(result);
@@ -47,11 +47,11 @@ app.post('/talker', authorizationMiddleware, nameMiddleware,
 ageMiddleware,
 talkMiddleware,
 watchedAtMiddleware,
-rateMiddleware, async (_request, response) => {
+rateMiddleware, async (request, response) => {
   const results = await readFIle();
-    results.push({ id: results.length + 1, ..._request.body });
+    results.push({ id: results.length + 1, ...request.body });
     writeFIle(results);
-  return response.status(201).json({ id: results.length, ..._request.body });
+  return response.status(201).json({ id: results.length, ...request.body });
 });
 
 // não remova esse endpoint, é para o avaliador funcionar

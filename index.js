@@ -54,6 +54,20 @@ rateMiddleware, async (request, response) => {
   return response.status(201).json({ id: results.length, ...request.body });
 });
 
+// Requisito 6
+app.put('/talker/:id', authorizationMiddleware, nameMiddleware,
+ageMiddleware,
+talkMiddleware,
+watchedAtMiddleware,
+rateMiddleware, async (request, response) => {
+  const { id } = request.params;
+  const results = await readFIle();
+  const resultIndex = results.findIndex((req) => req.id === Number(id));
+  results[resultIndex] = { ...results[resultIndex], ...request.body };
+  writeFIle(results);
+ return response.status(200).json(results[resultIndex]);
+});
+
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();

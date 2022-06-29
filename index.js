@@ -19,6 +19,14 @@ app.use(bodyParser.json());
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
 
+// Requisito 8
+app.get('/talker/search', authorizationMiddleware, async (request, response) => {
+   const results = await readFIle();
+   const newResults = results.filter((talker) => talker.name.includes(request.query.q));
+   if (request.query.q === '' || !request.query.q) return response.status(200).json(results);
+  return response.status(200).json(newResults);
+ });
+ 
 // Requisito 1
 app.get('/talker', async (_request, response) => {
  const result = await readFIle();

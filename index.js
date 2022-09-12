@@ -24,6 +24,7 @@ app.get('/talker', async (_request, response) => {
  const result = await readFIle();
   response.status(HTTP_OK_STATUS).send(result);
 });
+
 // Requisito 8
 app.get('/talker/search', authorizationMiddleware, async (request, response) => {
   const results = await readFIle();
